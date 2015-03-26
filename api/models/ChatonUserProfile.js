@@ -8,8 +8,8 @@
 module.exports = {
     attributes: {
         id:{type:"integer",unique:true,primaryKey:true},
-        displayName: {type: 'string', size: 64, minLength: 4,required:true},
-        user: {model: "ChatonUser",protected:true},
+        displayName: {type: 'string', size: 64, minLength: 4,required:true,unique:true},
+        user: {model: "ChatonUser",protected:true,required:true,unique:true},
         messages: {
             collection: 'ChatonMessage',
             via: 'userProfile'

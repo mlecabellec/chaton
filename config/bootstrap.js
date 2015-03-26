@@ -33,10 +33,13 @@ module.exports.bootstrap = function (cb) {
             }
 
             var relatedProfile = {user: cUser, displayName: cUser.username};
-            ChatonUserProfile.findOrCreate(relatedProfile, relatedProfile).exec(function (err, cUserProfile) {
+            console.log("relatedProfile: " + JSON.stringify(relatedProfile));
+            
+            ChatonUserProfile.findOrCreate({displayName: cUser.username}, relatedProfile).exec(function (err, cUserProfile) {
                 if (err !== null)
                 {
                     console.log("Error with user profile creation/check: " + err);
+                    console.log("Error with user profile creation/check, profile: " + JSON.stringify(cUserProfile));
                 } else
                 {
                     console.log("User profile found or created: " + JSON.stringify(cUserProfile));
