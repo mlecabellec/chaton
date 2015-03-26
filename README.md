@@ -1,2 +1,3 @@
 # chaton
-sails.js chat app POC
+
+a [Sails](http://sailsjs.org) application
