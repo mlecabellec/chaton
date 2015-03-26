@@ -171,6 +171,136 @@ module.exports = {
 
         });
 
+    },
+    /**
+     * `AuthenticationController.check()`
+     */
+    check: function (req, res) {
+
+        var authStatus = {authenticated: false, usedCookies: false, usedSession: false, username: "guest", code: 9999};
+
+        if (req.cookies.authenticated) {
+
+            ChatonUser.findOne({sessionkey: req.cookies.sessionkey}, function (err, cUser) {
+
+                if (err !== null)
+                {
+                    console.log("check error: " + err);
+                    //return res.serverError("Error when finding user for authentication !!!");
+                    authStatus.code = 1010;
+                    try {
+                        return res.json(authStatus);
+                    } catch (ex)
+                    {
+                        console.log("res.json(authStatus) problem");
+                    }
+                }
+
+                if (cUser !== undefined)
+                {
+                    console.log("check username: " + cUser.username);
+                    //return next();
+                    authStatus.authenticated = true;
+                    authStatus.usedCookies = true;
+                    authStatus.username = cUser.username;
+                    authStatus.code = 1020;
+                    try {
+                        return res.json(authStatus);
+                    } catch (ex)
+                    {
+                        console.log("res.json(authStatus) problem");
+                    }
+                } else
+                {
+                    console.log("check, problem with user: " + cUser);
+                    //return res.forbidden('You are not permitted to perform this action.');
+                    authStatus.code = 1030;
+                    try {
+                        return res.json(authStatus);
+                    } catch (ex)
+                    {
+                        console.log("res.json(authStatus) problem");
+                    }
+                }
+
+
+            });
+
+        } else
+        {
+            console.log("check, req.signedCookies.authenticated: " + req.cookies.authenticated);
+            //return res.forbidden('You are not permitted to perform this action.');
+            authStatus.code = 1040;
+            try {
+                return res.json(authStatus);
+            } catch (ex)
+            {
+                console.log("res.json(authStatus) problem");
+            }
+        }
+
+        if (req.session.authenticated) {
+
+            ChatonUser.findOne({sessionkey: req.session.sessionkey}, function (err, cUser) {
+
+                if (err !== null)
+                {
+                    console.log("check error: " + err);
+                    //return res.serverError("Error when finding user for authentication !!!");
+                    authStatus.code = 1050;
+                    try {
+                        return res.json(authStatus);
+                    } catch (ex)
+                    {
+                        console.log("res.json(authStatus) problem");
+                    }
+                }
+
+                if (cUser !== undefined)
+                {
+                    console.log("check username: " + cUser.username);
+                    //return next();
+                    authStatus.authenticated = true;
+                    authStatus.usedSession = true;
+                    authStatus.username = cUser.username;
+                    authStatus.code = 1060;
+                    try {
+                        return res.json(authStatus);
+                    } catch (ex)
+                    {
+                        console.log("res.json(authStatus) problem");
+                    }
+                } else
+                {
+                    console.log("check, problem with user: " + cUser);
+                    //return res.forbidden('You are not permitted to perform this action.');
+                    authStatus.code = 1070;
+                    try {
+                        return res.json(authStatus);
+                    } catch (ex)
+                    {
+                        console.log("res.json(authStatus) problem");
+                    }
+                }
+
+
+            });
+
+        } else
+        {
+            console.log("check, req.session.authenticated: " + req.session.authenticated);
+            //return res.forbidden('You are not permitted to perform this action.');
+            authStatus.code = 1080;
+            try {
+                return res.json(authStatus);
+            } catch (ex)
+            {
+                console.log("res.json(authStatus) problem");
+            }
+        }
+
+
+
     }
 };
 

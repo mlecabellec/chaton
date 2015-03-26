@@ -18,7 +18,7 @@ module.exports = function (req, res, next) {
 
         ChatonUser.findOne({sessionkey: req.session.sessionkey}, function (err, cUser) {
             
-            if(err != null)
+            if(err !== null)
             {
                 console.log("sessionAuth error: " + err);
                 return res.serverError("Error when finding user for authentication !!!");
