@@ -29,7 +29,7 @@ module.exports = {
             return res.json({
                 message: "Bad username.",
                 errorMessage: "Bad username. No valid login parameter found",
-                errorCode: 3000
+                code: 3000
             });
         }
 
@@ -38,7 +38,7 @@ module.exports = {
             return res.json({
                 message: "Bad username.",
                 errorMessage: "Bad username. No valid password parameter found",
-                errorCode: 3010
+                code: 3010
             });
         }
 
@@ -53,7 +53,7 @@ module.exports = {
                 return res.json({
                     message: "Login problem.",
                     errorMessage: "Login problem. Please check this error: " + err,
-                    errorCode: 3020,
+                    code: 3020,
                     err: err
                 });
             }
@@ -86,7 +86,9 @@ module.exports = {
                 return res.json({
                     message: "Login OK.",
                     errorMessage: "",
-                    errorCode: 0
+                    code: 0,
+                    username:cUser.username,
+                    authenticated:true
                 });
 
             } else
@@ -95,7 +97,7 @@ module.exports = {
                 return res.json({
                     message: "Login problem.",
                     errorMessage: "Login problem. Please check this error: " + err,
-                    errorCode: 3040,
+                    code: 3040,
                     err: err
                 });
             }
@@ -121,7 +123,7 @@ module.exports = {
         return res.json({
             message: "Logged out. Goodbye !",
             errorMessage: "",
-            errorCode: 0
+            code: 0
         });
     },
     /**
@@ -154,7 +156,7 @@ module.exports = {
                 return res.json({
                     message: "Registration problem.",
                     errorMessage: "Registration problem. Please check this error: " + err,
-                    errorCode: 3080,
+                    code: 3080,
                     err: err
                 });
             } else
@@ -162,7 +164,7 @@ module.exports = {
                 return res.json({
                     message: "Registration OK.",
                     errorMessage: "",
-                    errorCode: 0,
+                    code: 0,
                     err: err
                 });
             }

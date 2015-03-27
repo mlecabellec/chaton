@@ -4,5 +4,9 @@
 	"home": "Accueil",
 	"Chaton": "Chaton",
 	"My profile": "Mon profile",
-	"Log out": "Fin !"
+	"Log out": "Fin !",
+	"Login required": "Identification requise.",
+	"test text": "test text",
+	"Login panel": "Panneau d'identification",
+	"Initiating....": "Initialisation...."
 }
