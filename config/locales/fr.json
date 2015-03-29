@@ -6,7 +6,10 @@
 	"My profile": "Mon profile",
 	"Log out": "Fin !",
 	"Login required": "Identification requise.",
-	"test text": "test text",
+	"test text": "TEST TEST",
 	"Login panel": "Identification",
-	"Initiating....": "Initialisation...."
+	"Initiating....": "Initialisation....",
+	"Username": "Utilisateur",
+	"Password": "Mot de passe",
+	"Sign in": "Go!!!"
 }
