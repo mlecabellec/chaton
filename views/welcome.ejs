@@ -81,15 +81,15 @@
             m("div", {class: "panel-body"}, [
                 m("form.form-horizontal", [
                     m(".form-group", [
-                        m("label.col-sm-2.control-label[for='username']", "Username"),
+                        m("label.col-sm-2.control-label[for='username']", "<%= __('Username')%>"),
                         m(".col-sm-10", [
-                            m("input.form-control[id='username'][placeholder='Username'][type='text']")
+                            m("input.form-control[id='username'][placeholder='<%= __('Username')%>'][type='text']")
                         ])
                     ]),
                     m(".form-group", [
-                        m("label.col-sm-2.control-label[for='password']", "Password"),
+                        m("label.col-sm-2.control-label[for='password']", "<%= __('Password')%>"),
                         m(".col-sm-10", [
-                            m("input.form-control[id='password'][placeholder='Password'][type='password']")
+                            m("input.form-control[id='password'][placeholder='<%= __('Password')%>'][type='password']")
                         ])
                     ]),
                     m(".form-group", [
@@ -113,7 +113,7 @@
                                             });
 
 
-                                }}, "Sign in")
+                                }}, "<%= __('Sign in')%>")
                         ])
                     ]),
                     "\n"

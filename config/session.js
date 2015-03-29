@@ -65,13 +65,13 @@ module.exports.session = {
      ***************************************************************************/
 
     adapter: 'mongo',
-    host: 'ds037551.mongolab.com',
-    port: 37551,
-    db: 'test2015a',
-    user: 'test2015a',
-    password: 'test2015a',
+    host: '192.168.56.160',
+    port: 27017,
+    db: 'chaton2015a',
+    user: 'chaton2015a',
+    password: 'chaton2015a',
     collection: 'sessions',
-    url: 'mongodb://test2015a:test2015a@ds037551.mongolab.com:37551/test2015a/sessions',
+    url: 'mongodb://chaton2015a:chaton2015a@192.168.56.160:27017/chaton2015a/sessions',
     /***************************************************************************
      *                                                                          *
      * Optional Values:                                                         *

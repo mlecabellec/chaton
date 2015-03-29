@@ -64,6 +64,14 @@ module.exports.connections = {
 		password: 'test2015a',
 		database: 'test2015a'
   },
+vmMongoDb:{
+		adapter: 'sails-mongo',
+		host: '192.168.56.160',
+		port: 27017,
+		user: 'chaton2015a',
+		password: 'chaton2015a',
+		database: 'chaton2015a'
+  },
 
   /***************************************************************************
   *                                                                          *
