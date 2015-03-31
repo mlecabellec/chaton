@@ -11,5 +11,7 @@
 	"Initiating....": "Initialisation....",
 	"Username": "Utilisateur",
 	"Password": "Mot de passe",
-	"Sign in": "Go!!!"
+	"Sign in": "Go!!!",
+	"Awaiting for applications's logic initialization...": "Awaiting for applications's logic initialization...",
+	"Awaiting for logic initialization...": "Awaiting for logic initialization..."
 }

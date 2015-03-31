@@ -28,7 +28,7 @@ module.exports = {
         {
             return res.json({
                 message: "Bad username.",
-                errorMessage: "Bad username. No valid login parameter found",
+                errorMessage: "Bad username. No valid username parameter found",
                 code: 3000
             });
         }
@@ -36,8 +36,8 @@ module.exports = {
         if (givenPassword === null || givenPassword === undefined)
         {
             return res.json({
-                message: "Bad username.",
-                errorMessage: "Bad username. No valid password parameter found",
+                message: "Bad password.",
+                errorMessage: "Bad password. No valid password parameter found",
                 code: 3010
             });
         }
@@ -194,7 +194,7 @@ module.exports = {
                         return res.json(authStatus);
                     } catch (ex)
                     {
-                        console.log("res.json(authStatus) problem");
+                        console.log("res.json(authStatus) problem (5010)");
                     }
                 }
 
@@ -210,7 +210,7 @@ module.exports = {
                         return res.json(authStatus);
                     } catch (ex)
                     {
-                        console.log("res.json(authStatus) problem");
+                        console.log("res.json(authStatus) problem (5020)");
                     }
                 } else
                 {
@@ -221,7 +221,7 @@ module.exports = {
                         return res.json(authStatus);
                     } catch (ex)
                     {
-                        console.log("res.json(authStatus) problem");
+                        console.log("res.json(authStatus) problem (5030)");
                     }
                 }
 
@@ -237,7 +237,7 @@ module.exports = {
                 return res.json(authStatus);
             } catch (ex)
             {
-                console.log("res.json(authStatus) problem");
+                console.log("res.json(authStatus) problem (5040)");
             }
         }
 
@@ -254,7 +254,7 @@ module.exports = {
                         return res.json(authStatus);
                     } catch (ex)
                     {
-                        console.log("res.json(authStatus) problem");
+                        console.log("res.json(authStatus) problem (5060)");
                     }
                 }
 
@@ -270,7 +270,7 @@ module.exports = {
                         return res.json(authStatus);
                     } catch (ex)
                     {
-                        console.log("res.json(authStatus) problem");
+                        console.log("res.json(authStatus) problem (5070)");
                     }
                 } else
                 {
@@ -281,7 +281,7 @@ module.exports = {
                         return res.json(authStatus);
                     } catch (ex)
                     {
-                        console.log("res.json(authStatus) problem");
+                        console.log("res.json(authStatus) problem (5080)");
                     }
                 }
 
@@ -297,7 +297,7 @@ module.exports = {
                 return res.json(authStatus);
             } catch (ex)
             {
-                console.log("res.json(authStatus) problem");
+                console.log("res.json(authStatus) problem (5090)");
             }
         }
 

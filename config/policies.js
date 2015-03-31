@@ -27,13 +27,13 @@ module.exports.policies = {
 
     '*': false,
     ChatonMessageController: {
-        "*": "cookieAuth"
+        "*": "multiAuth1"
     },
     AuthenticationController: {
         "*": true
     },
     ChatonThreadController: {
-        "*": "cookieAuth"
+        "*": "multiAuth1"
     }
 
 

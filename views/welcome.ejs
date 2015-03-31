@@ -34,7 +34,9 @@
     </div>
 </header>
 <section class="container" id="mainContent" >
-
+    <div class="alert alert-warning">
+        <%= __('Awaiting for logic initialization...')%>
+    </div>
 </section>
 
 <script type="text/javascript">
@@ -45,31 +47,46 @@
             username: m.prop("???"),
             authenticated: m.prop(false),
             code: m.prop(9999)
+        },
+        loginData: {
+            username: m.prop(""),
+            password: m.prop("")
+        },
+        debug: {
+        },
+        chatData: {
+            onDeck: {
+                threads: [],
+                messages: [],
+                contacts: []
+            }
         }
     };
-    var mainContentInitController = function () {
-        $.getJSON("/authentication/check")
-                .done(function (data) {
-                    pageModel.userData.username = data.username;
-                    pageModel.userData.authenticated = data.authenticated;
-                    pageModel.userData.code = data.code;
-                    if (pageModel.userData.authenticated)
-                    {
-                        $("#usernameDisplay").text(pageModel.userData.username);
-                        m.route("home");
-                    } else
-                    {
-                        $("#usernameDisplay").text(pageModel.userData.username);
-                        m.route("login");
-                    }
 
-                })
-                .fail(function (jqxhr, textStatus, error) {
-                    m.route("init");
-                });
+
+    var mainContentInitController = function () {
+
+        var loginStatus = m.request({method: "GET", url: "/authentication/check"});
+        if (loginStatus.authenticated)
+        {
+            pageModel.userData.authenticated(loginStatus.authenticated);
+            pageModel.userData.username(loginStatus.username);
+            pageModel.userData.code(loginStatus.code);
+
+            m.route("/home");
+        } else
+        {
+
+            pageModel.userData.authenticated(loginStatus.authenticated);
+            pageModel.userData.username("");
+            pageModel.userData.code(loginStatus.code);
+
+            m.route("/login");
+        }
+
     };
+
     var mainContentInitView = function () {
-        $("#usernameDisplay").text(pageModel.userData.username);
         return m("div", {role: "alert", class: "alert alert-warning"}, "<%= __('Initiating....')%>");
     };
     var loginPanelView = function (controller) {
@@ -83,37 +100,18 @@
                     m(".form-group", [
                         m("label.col-sm-2.control-label[for='username']", "<%= __('Username')%>"),
                         m(".col-sm-10", [
-                            m("input.form-control[id='username'][placeholder='<%= __('Username')%>'][type='text']")
+                            m("input.form-control[id='username'][placeholder='<%= __('Username')%>'][type='text']", {onchange: m.withAttr("value", pageModel.loginData.username), value: pageModel.loginData.username()})
                         ])
                     ]),
                     m(".form-group", [
                         m("label.col-sm-2.control-label[for='password']", "<%= __('Password')%>"),
                         m(".col-sm-10", [
-                            m("input.form-control[id='password'][placeholder='<%= __('Password')%>'][type='password']")
+                            m("input.form-control[id='password'][placeholder='<%= __('Password')%>'][type='password']", {onchange: m.withAttr("value", pageModel.loginData.password), value: pageModel.loginData.password()})
                         ])
                     ]),
                     m(".form-group", [
                         m(".col-sm-offset-2.col-sm-10", [
-                            m("button.btn.btn-default[type='submit']", {onclick: function () {
-                                    $.post("/authentication/login", {
-                                        username: $("#username").val(),
-                                        password: $("#password").val()})
-                                            .done(function (data) {
-                                                pageModel.userData.username = data.username;
-                                                pageModel.userData.authenticated = data.authenticated;
-                                                pageModel.userData.code = data.code;
-                                                if (data.authenticated)
-                                                {
-                                                    m.route("home");
-                                                    $("#usernameDisplay").text(pageModel.userData.username);
-                                                }
-                                            })
-                                            .fail(function (jqxhr, textStatus, error) {
-
-                                            });
-
-
-                                }}, "<%= __('Sign in')%>")
+                            m("button.btn.btn-default[type='submit']", {onclick: controller.doLogin}, "<%= __('Sign in')%>")
                         ])
                     ]),
                     "\n"
@@ -121,28 +119,58 @@
             ])
         ]);
     };
-    var loginController = function (){ 
+    var loginController = function () {
+
+        this.doLogin = function () {
+
+            //alert("username: " + pageModel.loginData.username());
+            m.request({method: "POST", url: "/authentication/login",
+                data: {
+                    username: pageModel.loginData.username(),
+                    password: pageModel.loginData.password()
+                }
+            }).then(function (loginStatus) {//success handler
+                pageModel.userData.authenticated(loginStatus.authenticated);
+                pageModel.userData.username(loginStatus.username);
+                pageModel.userData.code(loginStatus.code);
+
+                if (pageModel.userData.authenticated())
+                {
+                    pageModel.loginData.password("");
+                    m.route("/home");
+                } else
+                {
+                    pageModel.loginData.password("");
+                    m.route("/login");
+                }
+
+            },
+                    function (data) {//failure handler
+                        pageModel.loginData.password("");
+                        m.route("/login");
+                    });
+
+        };
 
     };
-    
+
     var homeController = function () {
 
     };
-    
+
     var mainContentHomeView = function () {
-        $("#usernameDisplay").text(pageModel.userData.username);
-        return m("h3","TODO6") ;
+
     };
-    
+
     var pageInit = function ()
     {
         m.route.mode = "hash";
-        m.route(document.getElementById("mainContent"), "init", {
-            "init": {controller: mainContentInitController, view: mainContentInitView},
-            "login": {controller: loginController, view: loginPanelView},
-            "home": {controller: homeController, view: mainContentHomeView}
+        m.route(document.getElementById("mainContent"), "/init", {
+            "/init": {controller: mainContentInitController, view: mainContentInitView},
+            "/login": {controller: loginController, view: loginPanelView},
+            "/home": {controller: homeController, view: mainContentHomeView}
         });
-        $("#banner").animate({height: "60px", opacity: 0.5}, 4000);
+        $("#banner").animate({height: "60px", opacity: 0.5}, 2000);
     };
     $(document).ready(pageInit);
 
